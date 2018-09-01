@@ -8,10 +8,19 @@ public class Publisher {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
-
     private String address;
+    @OneToOne(mappedBy = "publisher", cascade = CascadeType.ALL,
+            fetch = FetchType.LAZY, optional = false)
+    private Book book;
+
+    public Publisher() {
+    }
+
+    public Publisher(String name, String address) {
+        this.name = name;
+        this.address = address;
+    }
 
     public Book getBook() {
         return book;
@@ -19,15 +28,6 @@ public class Publisher {
 
     public void setBook(Book book) {
         this.book = book;
-    }
-
-    @OneToOne(mappedBy = "publisher", cascade = CascadeType.ALL,
-            fetch = FetchType.LAZY, optional = false)
-    private Book book;
-
-    public Publisher(String name, String address) {
-        this.name = name;
-        this.address = address;
     }
 
     @Override
